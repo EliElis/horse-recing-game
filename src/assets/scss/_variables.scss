@@ -4,6 +4,7 @@
   --border-radius-button: 4px;
 
   --color-white: #fff;
+  --color-text: #333;
 
   --color-success: #22c55e;
   --color-success-hover: #16a34a;
@@ -13,4 +14,9 @@
   --color-warning-hover: #ea580c;
 
   --header-height: 62px;
+
 }
+
+$breakpoint-lg: 1024px;
+$breakpoint-md: 768px;
+$breakpoint-sm: 480px;

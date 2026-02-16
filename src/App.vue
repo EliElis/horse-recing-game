@@ -54,17 +54,23 @@ const raceStore = useRaceStore()
 horsesStore.initializeHorses()
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+@use '@/assets/scss/variables' as *;
+
 .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: var(--header-height);
+  min-height: var(--header-height);
   background-color: var(--color-white);
   border-bottom: 1px solid var(--border-color);
   padding-top: 12px;
   padding-bottom: 12px;
   z-index: 10;
+  @media (max-width: $breakpoint-lg) {
+    position: sticky;
+    top: 0;
+  }
   .title {
     margin-bottom: 0;
   }
@@ -75,31 +81,87 @@ horsesStore.initializeHorses()
 }
 
 .main {
-  display: flex;
-  align-items: flex-start;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: minmax(310px, 1fr) minmax(0, 2fr) minmax(0, 1.2fr);
+  align-items: start;
+  gap: 16px;
   height: calc(100dvh - var(--header-height));
   max-height: calc(100dvh - var(--header-height));
-  gap: 16px;
   padding: 24px;
   overflow: hidden;
 }
 
 .main-content {
-  max-width: 850px;
-  width: 46%;
   overflow: auto;
 }
 
 .aside-left {
-  min-width: 310px;
-  width: 24%;
   overflow: auto;
 }
 
 .aside-right {
-  display: flex;
-  width: 28%;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 16px;
+  align-items: start;
+  min-width: 0;
+  max-height: calc(100dvh - var(--header-height) - 48px);
+  overflow-y: auto;
+}
+
+@media (max-width: $breakpoint-lg) {
+  .main {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+    height: auto;
+    max-height: none;
+    overflow-y: auto;
+  }
+
+  .aside-right {
+    grid-column: 1 / -1;
+    max-height: none;
+  }
+}
+
+@media (max-width: $breakpoint-md) {
+  .header {
+    flex-wrap: wrap;
+    gap: 8px;
+    height: auto;
+    .title {
+      font-size: 20px;
+    }
+    .header-buttons {
+      gap: 8px;
+    }
+  }
+
+  .main {
+    grid-template-columns: 1fr;
+    height: auto;
+    max-height: none;
+    overflow-y: auto;
+    padding: 16px;
+  }
+
+  .aside-right {
+    max-height: none;
+  }
+}
+
+@media (max-width: $breakpoint-sm) {
+  .header {
+    padding-left: 12px;
+    padding-right: 12px;
+    .header-buttons {
+      width: 100%;
+      justify-content: space-between;
+    }
+  }
+
+  .main {
+    padding: 12px;
+    gap: 12px;
+  }
 }
 </style>

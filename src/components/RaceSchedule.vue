@@ -1,18 +1,24 @@
 <template>
-  <div class="race-schedule card">
+  <div class="race-schedule card pt-0">
     <h2>Schedule</h2>
     <Transition name="fade" mode="out-in">
       <div v-if="raceStore.isScheduleGenerated">
-        <TransitionGroup name="list" tag="div">
-          <div v-for="round in raceStore.schedule" :key="round.index">
-            <h3>Round: {{ round.index }} - {{ round.distance }}m</h3>
-            <SimpleTable :columns="columns" :rows="round.horses">
+        <AccordionList
+          :items="(raceStore.schedule as Record<string, unknown>[])"
+          item-key="index"
+          :active-key="raceStore.currentRound + 1"
+        >
+          <template #header="{ item }">
+            <span>Round {{ item.index }} ({{ item.distance }}m)</span>
+          </template>
+          <template #content="{ item }">
+            <SimpleTable :columns="columns" :rows="(item.horses as Record<string, unknown>[])">
               <template #position="{ index }">
                 {{ index + 1 }}
               </template>
             </SimpleTable>
-          </div>
-        </TransitionGroup>
+          </template>
+        </AccordionList>
       </div>
       <div v-else>
         <p>No schedule yet!</p>
@@ -24,6 +30,7 @@
 <script setup lang="ts">
 import { useRaceStore } from '@/stores/race'
 import SimpleTable, { type Column } from '@/components/partials/SimpleTable.vue'
+import AccordionList from '@/components/partials/AccordionList.vue'
 
 const raceStore = useRaceStore()
 
@@ -35,7 +42,7 @@ const columns: Column[] = [
 
 <style scoped>
 .race-schedule {
-  min-width: 240px;
+  min-width: 0;
   max-height: calc(100dvh - var(--header-height) - 48px);
   overflow-y: auto;
 
@@ -43,14 +50,8 @@ const columns: Column[] = [
     position: sticky;
     top: 0;
     background-color: var(--color-white);
+    padding-top: 8px;
     z-index: 2;
-  }
-
-  h3 {
-    position: sticky;
-    top: 30px;
-    background-color: var(--color-white);
-    z-index: 1;
   }
 }
 
@@ -62,14 +63,5 @@ const columns: Column[] = [
 .fade-enter-from,
 .fade-leave-to {
   opacity: 0;
-}
-
-.list-enter-active {
-  transition: all 0.4s ease;
-}
-
-.list-enter-from {
-  opacity: 0;
-  transform: translateY(20px);
 }
 </style>
