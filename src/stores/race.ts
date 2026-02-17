@@ -65,6 +65,7 @@ export const useRaceStore = defineStore('race', () => {
 
     if (isPaused.value) {
       isPaused.value = false
+      startSimulation()
       return
     }
 
@@ -86,8 +87,6 @@ export const useRaceStore = defineStore('race', () => {
   function startSimulation() {
     stopSimulation()
     simulationInterval = setInterval(() => {
-      if (isPaused.value) return
-
       const round = schedule.value[currentRound.value]
       if (!round) return
 
@@ -96,10 +95,9 @@ export const useRaceStore = defineStore('race', () => {
         const current = raceProgress.value[horse.id] ?? 0
         if (current >= round.distance) return
         allFinished = false
-        const baseSpeed = BASE_SPEED
         const conditionBonus = (horse.condition / 100) * MAX_CONDITION_BONUS
         const randomFactor = Math.random() * MAX_RANDOM_FACTOR
-        const step = baseSpeed + conditionBonus + randomFactor
+        const step = BASE_SPEED + conditionBonus + randomFactor
         const next = Math.min(current + step, round.distance)
         raceProgress.value[horse.id] = next
         if (next >= round.distance && !finishOrder.value.includes(horse)) {
@@ -122,6 +120,7 @@ export const useRaceStore = defineStore('race', () => {
 
   function pauseRace() {
     isPaused.value = true
+    stopSimulation()
   }
 
   function finishRound() {

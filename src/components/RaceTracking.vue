@@ -1,31 +1,33 @@
 <template>
-  <div class="race-tracking" v-if="raceStore.isScheduleGenerated && (raceStore.currentRoundData || raceStore.isRaceComplete)">
-
-      <Transition name="fade" mode="out-in">
-        <div :key="raceStore.currentRound" class="race-tracking-lanes">
-          <div
-            v-for="(horse, index) in displayRoundData?.horses"
-            :key="horse.id"
-            class="race-tracking-lane"
-          >
-            <div class="number" :style="{ '--horse-color': horse.color }">
-              {{ index + 1 }}
-              <span class="number-tooltip">{{ horse.name }}</span>
-            </div>
-            <div class="track">
-              <RunningHorse
-                class="horse"
-                :style="{ left: progressPercent(horse.id) + '%' }"
-                :fill-color="horse.color"
-                :is-running="isHorseRunning(horse.id)"
-                :animation-speed="horseAnimationSpeed(horse.condition)"
-                @transitionend="onHorseTransitionEnd($event, horse.id)"
-              />
-            </div>
+  <div
+    class="race-tracking"
+    v-if="raceStore.isScheduleGenerated && (raceStore.currentRoundData || raceStore.isRaceComplete)"
+  >
+    <Transition name="fade" mode="out-in">
+      <div :key="raceStore.currentRound" class="race-tracking-lanes">
+        <div
+          v-for="(horse, index) in displayRoundData?.horses"
+          :key="horse.id"
+          class="race-tracking-lane"
+        >
+          <div class="number" :style="{ '--horse-color': horse.color }">
+            {{ index + 1 }}
+            <span class="number-tooltip">{{ horse.name }}</span>
+          </div>
+          <div class="track">
+            <RunningHorse
+              class="horse"
+              :style="{ left: progressPercent(horse.id) + '%' }"
+              :fill-color="horse.color"
+              :is-running="isHorseRunning(horse.id)"
+              :animation-speed="horseAnimationSpeed(horse.condition)"
+              @transitionend="onHorseTransitionEnd($event, horse.id)"
+            />
           </div>
         </div>
-      </Transition>
-      <RaceNotice v-if="raceNoticeText" :message="raceNoticeText" />
+      </div>
+    </Transition>
+    <RaceNotice v-if="raceNoticeText" :message="raceNoticeText" />
   </div>
   <div class="race-tracking race-tracking-placeholder" v-else>
     <div v-for="i in 10" :key="i" class="race-tracking-lane">
@@ -53,14 +55,16 @@ const displayRoundData = computed(() => {
   return null
 })
 
-watch(() => raceStore.currentRound, () => {
-  transitionFinished.clear()
-})
+watch(
+  () => raceStore.currentRound,
+  () => {
+    transitionFinished.clear()
+  },
+)
 
 function isHorseRunning(horseId: number): boolean {
   if (!raceStore.isRacing || raceStore.isPaused) return false
-  return !transitionFinished.has(horseId);
-
+  return !transitionFinished.has(horseId)
 }
 
 function onHorseTransitionEnd(event: TransitionEvent, horseId: number) {
@@ -174,15 +178,5 @@ function progressPercent(horseId: number): number {
       height: var(--horse-icon-size);
     }
   }
-}
-
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.4s ease;
-}
-
-.fade-enter-from,
-.fade-leave-to {
-  opacity: 0;
 }
 </style>

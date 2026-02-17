@@ -2,9 +2,9 @@
   <div class="horse-list">
     <div class="horse-list-content">
       <h2 class="horse-list-title">Horse List</h2>
-      <SimpleTable title="Horse List" :columns="columns" :rows="horses">
+      <SimpleTable :columns="columns" :rows="horses">
         <template #color="{ value, row }">
-          <ColorBox :color="(value as string)" :label="(row.colorName as string)" />
+          <ColorBox :color="value as string" :label="row.colorName as string" />
         </template>
       </SimpleTable>
     </div>
@@ -41,6 +41,5 @@ const columns: Column[] = [
     background-color: var(--color-white);
     z-index: 1;
   }
-
 }
 </style>

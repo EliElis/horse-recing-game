@@ -23,5 +23,4 @@ describe('shuffleArray', () => {
   it('handles a single-element array', () => {
     expect(shuffleArray([42])).toEqual([42])
   })
-
 })

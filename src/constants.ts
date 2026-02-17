@@ -1,19 +1,13 @@
-export const PARTICIPANTS = 10;
-export const ROUNDS = 6;
+export const PARTICIPANTS = 10
 
 export const BASE_SPEED = 20
 export const MAX_CONDITION_BONUS = 10
 export const MAX_RANDOM_FACTOR = 5
 export const SIMULATION_INTERVAL_MS = 100
 
-export const ROUND_SETTINGS = [
-  1200,
-  1400,
-  1600,
-  1800,
-  2000,
-  2200
-]
+export const ROUND_SETTINGS = [1200, 1400, 1600, 1800, 2000, 2200]
+
+export const ROUNDS = ROUND_SETTINGS.length
 
 export const HORSE_NAMES = [
   'Thunder Bolt',
@@ -36,7 +30,7 @@ export const HORSE_NAMES = [
   'Shadow Dancer',
   'Pearl Breeze',
   'Ruby Rocket',
-];
+]
 
 export const HORSE_COLORS = [
   { name: 'Red', color: '#E6194B' },
@@ -59,4 +53,4 @@ export const HORSE_COLORS = [
   { name: 'Grey', color: '#A9A9A9' },
   { name: 'Black', color: '#1A1A1A' },
   { name: 'Indigo', color: '#4B0082' },
-];
+]

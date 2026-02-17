@@ -6,7 +6,8 @@
   box-sizing: border-box;
 }
 
-html, body {
+html,
+body {
   margin: 0;
   padding: 0;
 }
@@ -19,7 +20,6 @@ body {
   background-color: #f8fafc;
   text-rendering: optimizeLegibility;
 }
-
 
 table {
   border-spacing: 0;
@@ -51,4 +51,14 @@ table {
 
 .pt-0 {
   padding-top: 0;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.3s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
 }

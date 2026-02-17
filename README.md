@@ -1,70 +1,28 @@
-# horse-racing-game
+# Horse Racing Game
 
-This template should help get you started developing with Vue 3 in Vite.
+An interactive horse racing game built as a front-end case study.
 
-## Recommended IDE Setup
+## Game Rules
 
-[VS Code](https://code.visualstudio.com/) + [Vue (Official)](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+- 20 horses, each with a unique color and a condition score (1–100)
+- 6 rounds at increasing distances: 1200m, 1400m, 1600m, 1800m, 2000m, 2200m
+- 10 random horses are selected per round
+- Races run one round at a time with animated horse movement
+- Results are displayed sequentially as each round finishes
 
-## Recommended Browser Setup
+## Tech Stack
 
-- Chromium-based browsers (Chrome, Edge, Brave, etc.):
-  - [Vue.js devtools](https://chromewebstore.google.com/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd)
-  - [Turn on Custom Object Formatter in Chrome DevTools](http://bit.ly/object-formatters)
-- Firefox:
-  - [Vue.js devtools](https://addons.mozilla.org/en-US/firefox/addon/vue-js-devtools/)
-  - [Turn on Custom Object Formatter in Firefox DevTools](https://fxdx.dev/firefox-devtools-custom-object-formatters/)
+Vue 3, TypeScript, Pinia, Vite, SCSS, Vitest, Cypress
 
-## Type Support for `.vue` Imports in TS
-
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
-
-## Customize configuration
-
-See [Vite Configuration Reference](https://vite.dev/config/).
-
-## Project Setup
+## Commands
 
 ```sh
-npm install
-```
-
-### Compile and Hot-Reload for Development
-
-```sh
-npm run dev
-```
-
-### Type-Check, Compile and Minify for Production
-
-```sh
-npm run build
-```
-
-### Run Unit Tests with [Vitest](https://vitest.dev/)
-
-```sh
-npm run test:unit
-```
-
-### Run End-to-End Tests with [Cypress](https://www.cypress.io/)
-
-```sh
-npm run test:e2e:dev
-```
-
-This runs the end-to-end tests against the Vite development server.
-It is much faster than the production build.
-
-But it's still recommended to test the production build with `test:e2e` before deploying (e.g. in CI environments):
-
-```sh
-npm run build
-npm run test:e2e
-```
-
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-npm run lint
+npm install          # Install dependencies
+npm run dev          # Dev server
+npm run build        # Production build
+npm run lint         # Lint and fix
+npm run format       # Format code with Prettier
+npm run test:unit    # Unit tests
+npm run test:e2e     # E2E tests (against production build)
+npm run test:e2e:dev # E2E tests (against dev server)
 ```

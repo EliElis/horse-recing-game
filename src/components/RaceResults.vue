@@ -1,7 +1,7 @@
 <template>
   <div class="card race-results pt-0">
     <h2>Results</h2>
-    <template v-if="raceStore.results && raceStore.results.length > 0">
+    <template v-if="raceStore.results.length > 0">
       <SimpleAccordion
         :items="raceStore.results as Record<string, unknown>[]"
         item-key="index"
