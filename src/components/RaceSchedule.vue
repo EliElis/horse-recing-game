@@ -4,7 +4,7 @@
     <Transition name="fade" mode="out-in">
       <div v-if="raceStore.isScheduleGenerated">
         <SimpleAccordion
-          :items="(raceStore.schedule as Record<string, unknown>[])"
+          :items="raceStore.schedule as Record<string, unknown>[]"
           item-key="index"
           :active-key="raceStore.currentRound + 1"
         >
@@ -12,7 +12,7 @@
             <span>Round {{ item.index }} ({{ item.distance }}m)</span>
           </template>
           <template #content="{ item }">
-            <SimpleTable :columns="columns" :rows="(item.horses as Record<string, unknown>[])">
+            <SimpleTable :columns="columns" :rows="item.horses as Record<string, unknown>[]">
               <template #position="{ index }">
                 {{ index + 1 }}
               </template>
@@ -40,11 +40,15 @@ const columns: Column[] = [
 ]
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+@use '@/assets/scss/variables' as *;
 .race-schedule {
   min-width: 0;
-  max-height: calc(100dvh - var(--header-height) - 48px);
+  max-height: var(--content-height-padded);
   overflow-y: auto;
+  @media (max-width: $breakpoint-md) {
+    max-height: none;
+  }
 
   h2 {
     position: sticky;

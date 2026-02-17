@@ -58,5 +58,5 @@ export const HORSE_COLORS = [
   { name: 'Navy', color: '#000075' },
   { name: 'Grey', color: '#A9A9A9' },
   { name: 'Black', color: '#1A1A1A' },
-  { name: 'Gold', color: '#FFD700' },
+  { name: 'Indigo', color: '#4B0082' },
 ];

@@ -1,25 +1,31 @@
 <template>
   <div class="race-tracking" v-if="raceStore.isScheduleGenerated && raceStore.currentRoundData">
-    <Transition name="fade" mode="out-in">
-      <div :key="raceStore.currentRound" class="race-tracking-lanes">
-        <div
-          v-for="(horse, index) in raceStore.currentRoundData?.horses"
-          :key="horse.id"
-          class="race-tracking-lane"
-        >
-          <div class="number" :style="{ '--horse-color': horse.color }">{{ index + 1 }}</div>
-          <div class="track">
-            <RunningHorse
-              class="horse"
-              :style="{ left: progressPercent(horse.id) + '%' }"
-              :fill-color="horse.color"
-              :is-running="raceStore.isRacing && !raceStore.isPaused && progressPercent(horse.id) < 100"
-            />
+
+      <Transition name="fade" mode="out-in">
+        <div :key="raceStore.currentRound" class="race-tracking-lanes">
+          <div
+            v-for="(horse, index) in raceStore.currentRoundData?.horses"
+            :key="horse.id"
+            class="race-tracking-lane"
+          >
+            <div class="number" :style="{ '--horse-color': horse.color }">
+              {{ index + 1 }}
+              <span class="number-tooltip">{{ horse.name }}</span>
+            </div>
+            <div class="track">
+              <RunningHorse
+                class="horse"
+                :style="{ left: progressPercent(horse.id) + '%' }"
+                :fill-color="horse.color"
+                :is-running="
+                  raceStore.isRacing && !raceStore.isPaused && progressPercent(horse.id) < 100
+                "
+              />
+            </div>
           </div>
         </div>
-      </div>
-    </Transition>
-    <RaceNotice v-if="raceNoticeText" :message="raceNoticeText" />
+      </Transition>
+      <RaceNotice v-if="raceNoticeText" :message="raceNoticeText" />
   </div>
   <div class="race-tracking race-tracking-placeholder" v-else>
     <div v-for="i in 10" :key="i" class="race-tracking-lane">
@@ -55,13 +61,22 @@ function progressPercent(horseId: number): number {
 </script>
 
 <style scoped lang="scss">
+@use '@/assets/scss/variables' as *;
 .race-tracking {
+  --lane-height: 70px;
+  --horse-icon-size: 60px;
+
   position: relative;
   min-width: 300px;
+  max-height: var(--content-height-padded);
   border-radius: var(--border-radius);
   border: 1px solid var(--border-color);
+  overflow: auto;
   &.race-tracking-placeholder {
     overflow: hidden;
+  }
+  @media (max-width: $breakpoint-md) {
+    max-height: none;
   }
 }
 
@@ -72,17 +87,32 @@ function progressPercent(horseId: number): number {
   background: #f5f5f5;
   border-bottom: 1px solid var(--border-color);
   padding: 4px 8px;
-  height: 70px;
+  height: var(--lane-height);
   .number {
     position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 60px;
-    min-height: 60px;
+    width: var(--horse-icon-size);
+    min-height: var(--horse-icon-size);
     height: 100%;
     color: var(--color-white);
+    cursor: pointer;
     z-index: 1;
+
+    &:hover .number-tooltip {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .number-tooltip {
+      @include tooltip;
+      position: absolute;
+      top: 50%;
+      left: calc(100% + 4px);
+      transform: translateY(-50%);
+      z-index: 10;
+    }
 
     &:before {
       content: '';
@@ -100,13 +130,18 @@ function progressPercent(horseId: number): number {
     position: relative;
     width: 100%;
     height: 100%;
-    padding-left: 60px;
+    padding-left: var(--horse-icon-size);
   }
 
   .horse {
     position: relative;
     transition: left 0.3s linear;
     transform: translateX(-100%);
+
+    :deep(svg) {
+      width: var(--horse-icon-size);
+      height: var(--horse-icon-size);
+    }
   }
 }
 

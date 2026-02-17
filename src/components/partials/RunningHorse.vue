@@ -64,9 +64,4 @@ onUnmounted(() => {
 .running-horse {
   display: inline-block;
 }
-
-.running-horse :deep(svg) {
-  width: 60px;
-  height: 60px;
-}
 </style>

@@ -27,7 +27,11 @@
       >
         Start
       </button>
-      <button v-if="raceStore.isScheduleGenerated" class="button button-danger" @click="raceStore.resetRace()">
+      <button
+        v-if="raceStore.isScheduleGenerated"
+        class="button button-danger"
+        @click="raceStore.resetRace()"
+      >
         Reset Race
       </button>
     </div>
@@ -70,10 +74,7 @@ horsesStore.initializeHorses()
   padding-top: 10px;
   padding-bottom: 10px;
   z-index: 10;
-  @media (max-width: $breakpoint-lg) {
-    position: sticky;
-    top: 0;
-  }
+
   .header-logo {
     display: flex;
     align-items: center;
@@ -97,8 +98,8 @@ horsesStore.initializeHorses()
   grid-template-columns: minmax(310px, 1fr) minmax(0, 2fr) minmax(0, 1.2fr);
   align-items: start;
   gap: 16px;
-  height: calc(100dvh - var(--header-height));
-  max-height: calc(100dvh - var(--header-height));
+  height: var(--content-height);
+  max-height: var(--content-height);
   padding: 24px;
   overflow: hidden;
 }
@@ -108,7 +109,7 @@ horsesStore.initializeHorses()
 }
 
 .aside-left {
-  max-height: calc(100dvh - var(--header-height) - 60px);
+  max-height: var(--content-height-padded);
   overflow: auto;
 }
 
@@ -118,11 +119,15 @@ horsesStore.initializeHorses()
   gap: 16px;
   align-items: start;
   min-width: 0;
-  max-height: calc(100dvh - var(--header-height) - 48px);
+  max-height: var(--content-height-padded);
   overflow-y: auto;
 }
 
 @media (max-width: $breakpoint-lg) {
+  .header {
+    position: sticky;
+    top: 0;
+  }
   .main {
     grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
     height: auto;
@@ -157,6 +162,10 @@ horsesStore.initializeHorses()
     padding: 16px;
   }
 
+  .aside-left {
+    max-height: none;
+  }
+
   .aside-right {
     max-height: none;
   }
@@ -166,9 +175,10 @@ horsesStore.initializeHorses()
   .header {
     padding-left: 12px;
     padding-right: 12px;
+    justify-content: center;
     .header-buttons {
       width: 100%;
-      justify-content: space-between;
+      justify-content: center;
     }
   }
 

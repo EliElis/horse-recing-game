@@ -12,7 +12,8 @@ defineProps<{
 }>()
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+@use '@/assets/scss/variables' as *;
 .color-box-wrapper {
   position: relative;
   display: inline-block;
@@ -33,18 +34,9 @@ defineProps<{
 }
 
 .color-box-tooltip {
+  @include tooltip;
   position: absolute;
   top: -3px;
   right: calc(100% + 2px);
-  padding: 4px 8px;
-  border-radius: var(--border-radius-button);
-  background-color: #333;
-  color: var(--color-white);
-  font-size: 12px;
-  white-space: nowrap;
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 0.2s, visibility 0.2s;
-  pointer-events: none;
 }
 </style>

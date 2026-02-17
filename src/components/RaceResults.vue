@@ -3,7 +3,7 @@
     <h2>Results</h2>
     <template v-if="raceStore.results && raceStore.results.length > 0">
       <SimpleAccordion
-        :items="(raceStore.results as Record<string, unknown>[])"
+        :items="raceStore.results as Record<string, unknown>[]"
         item-key="index"
         :active-key="latestResultIndex"
       >
@@ -11,7 +11,7 @@
           <span>Round {{ item.index }} ({{ item.distance }}m)</span>
         </template>
         <template #content="{ item }">
-          <SimpleTable :columns="columns" :rows="(item.positions as Record<string, unknown>[])">
+          <SimpleTable :columns="columns" :rows="item.positions as Record<string, unknown>[]">
             <template #horse="{ value }">
               {{ (value as Horse).name }}
             </template>
@@ -45,11 +45,15 @@ const latestResultIndex = computed(() => {
 })
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+@use '@/assets/scss/variables' as *;
 .race-results {
   min-width: 0;
-  max-height: calc(100dvh - var(--header-height) - 48px);
+  max-height: var(--content-height-padded);
   overflow-y: auto;
+  @media (max-width: $breakpoint-md) {
+    max-height: none;
+  }
 
   h2 {
     position: sticky;

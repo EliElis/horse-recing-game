@@ -1,9 +1,7 @@
 <template>
   <div class="race-notice">
-    <div class="race-notice-content">
-      <img src="@/assets/img/svg/horse-head.svg" alt="Horse Racing" width="60" />
-      <h4 class="race-notice-text">{{ message }}</h4>
-    </div>
+    <img src="@/assets/img/svg/horse-head.svg" alt="Horse Racing" width="60" />
+    <h4 class="race-notice-text">{{ message }}</h4>
   </div>
 </template>
 
@@ -16,26 +14,19 @@ defineProps<{
 <style scoped lang="scss">
 .race-notice {
   position: absolute;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  left: 0;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  background: #0000004d;
-  z-index: 2;
-}
-
-.race-notice-content {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 12px;
-  background-color: var(--color-white);
   padding: 16px;
   border-radius: var(--border-radius);
+  border: 1px solid var(--border-color);
+  background-color: var(--color-white);
   max-width: 300px;
+  z-index: 2;
 }
 
 .race-notice-text {

@@ -14,9 +14,23 @@
   --color-warning-hover: #ea580c;
 
   --header-height: 62px;
-
+  --content-height: calc(100dvh - var(--header-height));
+  --content-height-padded: calc(100dvh - var(--header-height) - 48px);
 }
 
 $breakpoint-lg: 1024px;
 $breakpoint-md: 768px;
 $breakpoint-sm: 480px;
+
+@mixin tooltip {
+  padding: 4px 8px;
+  border-radius: var(--border-radius-button);
+  background-color: #333;
+  color: var(--color-white);
+  font-size: 12px;
+  white-space: nowrap;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s, visibility 0.2s;
+  pointer-events: none;
+}
