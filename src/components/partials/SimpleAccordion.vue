@@ -1,6 +1,6 @@
 <template>
   <div class="accordion">
-    <div v-for="item in items" :key="item[itemKey]" class="accordion-item">
+    <div v-for="item in items" :key="String(item[itemKey])" class="accordion-item">
       <button
         class="accordion-header"
         :class="{ active: item[itemKey] === activeKey, open: openKeys.has(item[itemKey]) }"
@@ -44,7 +44,7 @@ function toggle(key: unknown) {
 watch(
   () => props.activeKey,
   (key) => {
-    if (key != null) {
+    if (key !== undefined && key !== null) {
       openKeys.value.clear()
       openKeys.value.add(key)
     }

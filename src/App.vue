@@ -50,7 +50,7 @@ import RaceSchedule from '@/components/RaceSchedule.vue'
 import RaceTracking from '@/components/RaceTracking.vue'
 import RaceResults from '@/components/RaceResults.vue'
 import { useHorsesStore } from '@/stores/horses'
-import { useRaceStore } from '@/stores/race.ts'
+import { useRaceStore } from '@/stores/race'
 
 const horsesStore = useHorsesStore()
 const raceStore = useRaceStore()

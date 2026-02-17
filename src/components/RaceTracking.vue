@@ -4,7 +4,7 @@
       <div :key="raceStore.currentRound" class="race-tracking-lanes">
         <div
           v-for="(horse, index) in raceStore.currentRoundData?.horses"
-          :key="index"
+          :key="horse.id"
           class="race-tracking-lane"
         >
           <div class="number" :style="{ '--horse-color': horse.color }">{{ index + 1 }}</div>
@@ -14,7 +14,6 @@
               :style="{ left: progressPercent(horse.id) + '%' }"
               :fill-color="horse.color"
               :is-running="raceStore.isRacing && !raceStore.isPaused"
-              :size="60"
             />
           </div>
         </div>

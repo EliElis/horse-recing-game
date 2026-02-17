@@ -1,6 +1,11 @@
 export const PARTICIPANTS = 10;
 export const ROUNDS = 6;
 
+export const BASE_SPEED = 20
+export const MAX_CONDITION_BONUS = 10
+export const MAX_RANDOM_FACTOR = 5
+export const SIMULATION_INTERVAL_MS = 100
+
 export const ROUND_SETTINGS = [
   1200,
   1400,

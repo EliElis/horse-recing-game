@@ -3,7 +3,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted, onUnmounted, watch } from 'vue'
+import { ref, computed, onUnmounted, watch } from 'vue'
 import horse1Raw from '@/assets/img/svg/horse-1.svg?raw'
 import horse2Raw from '@/assets/img/svg/horse-2.svg?raw'
 import horse3Raw from '@/assets/img/svg/horse-3.svg?raw'
@@ -54,10 +54,6 @@ watch(
   },
   { immediate: true },
 )
-
-onMounted(() => {
-  if (props.isRunning) startAnimation()
-})
 
 onUnmounted(() => {
   stopAnimation()

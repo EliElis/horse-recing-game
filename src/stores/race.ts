@@ -1,6 +1,14 @@
 import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
-import { PARTICIPANTS, ROUNDS, ROUND_SETTINGS } from '@/constants'
+import {
+  PARTICIPANTS,
+  ROUNDS,
+  ROUND_SETTINGS,
+  BASE_SPEED,
+  MAX_CONDITION_BONUS,
+  MAX_RANDOM_FACTOR,
+  SIMULATION_INTERVAL_MS,
+} from '@/constants'
 import { useHorsesStore, type Horse } from '@/stores/horses'
 import { shuffleArray } from '@/utils/array'
 
@@ -88,9 +96,9 @@ export const useRaceStore = defineStore('race', () => {
         const current = raceProgress.value[horse.id] ?? 0
         if (current >= round.distance) return
         allFinished = false
-        const baseSpeed = 20
-        const conditionBonus = (horse.condition / 100) * 10
-        const randomFactor = Math.random() * 5
+        const baseSpeed = BASE_SPEED
+        const conditionBonus = (horse.condition / 100) * MAX_CONDITION_BONUS
+        const randomFactor = Math.random() * MAX_RANDOM_FACTOR
         const step = baseSpeed + conditionBonus + randomFactor
         const next = Math.min(current + step, round.distance)
         raceProgress.value[horse.id] = next
@@ -102,7 +110,7 @@ export const useRaceStore = defineStore('race', () => {
       if (allFinished) {
         finishRound()
       }
-    }, 100)
+    }, SIMULATION_INTERVAL_MS)
   }
 
   function stopSimulation() {
