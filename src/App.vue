@@ -7,6 +7,7 @@
     <div class="header-buttons">
       <button
         v-if="!raceStore.isScheduleGenerated"
+        data-testid="generate-schedule"
         class="button button-success"
         @click="raceStore.generateSchedule()"
       >
@@ -14,6 +15,7 @@
       </button>
       <button
         v-if="raceStore.isRacing && !raceStore.isPaused"
+        data-testid="pause-race"
         class="button button-warning"
         @click="raceStore.pauseRace()"
       >
@@ -21,6 +23,7 @@
       </button>
       <button
         v-else
+        data-testid="start-race"
         class="button button-success"
         :disabled="!raceStore.isScheduleGenerated || raceStore.isRaceComplete"
         @click="raceStore.startRace()"
@@ -29,6 +32,7 @@
       </button>
       <button
         v-if="raceStore.isScheduleGenerated"
+        data-testid="reset-race"
         class="button button-danger"
         @click="raceStore.resetRace()"
       >

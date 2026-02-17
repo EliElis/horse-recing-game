@@ -1,5 +1,5 @@
 <template>
-  <div class="race-notice">
+  <div class="race-notice" data-testid="race-notice">
     <img src="@/assets/img/svg/horse-head.svg" alt="Horse Racing" width="60" />
     <h4 class="race-notice-text">{{ message }}</h4>
   </div>

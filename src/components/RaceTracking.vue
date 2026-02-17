@@ -1,10 +1,10 @@
 <template>
-  <div class="race-tracking" v-if="raceStore.isScheduleGenerated && raceStore.currentRoundData">
+  <div class="race-tracking" v-if="raceStore.isScheduleGenerated && (raceStore.currentRoundData || raceStore.isRaceComplete)">
 
       <Transition name="fade" mode="out-in">
         <div :key="raceStore.currentRound" class="race-tracking-lanes">
           <div
-            v-for="(horse, index) in raceStore.currentRoundData?.horses"
+            v-for="(horse, index) in displayRoundData?.horses"
             :key="horse.id"
             class="race-tracking-lane"
           >
@@ -45,6 +45,14 @@ import RaceNotice from '@/components/partials/RaceNotice.vue'
 const raceStore = useRaceStore()
 const transitionFinished = reactive(new Set<number>())
 
+const displayRoundData = computed(() => {
+  if (raceStore.currentRoundData) return raceStore.currentRoundData
+  if (raceStore.isRaceComplete && raceStore.schedule.length > 0) {
+    return raceStore.schedule[raceStore.schedule.length - 1]
+  }
+  return null
+})
+
 watch(() => raceStore.currentRound, () => {
   transitionFinished.clear()
 })
@@ -62,7 +70,8 @@ function onHorseTransitionEnd(event: TransitionEvent, horseId: number) {
 }
 
 const raceNoticeText = computed(() => {
-  if (raceStore.isRaceComplete) return 'All races are finished!'
+  if (raceStore.isRaceComplete)
+    return 'All races are finished!\nReset the race and generate a new schedule!'
   if (raceStore.isPaused) return "Race paused. Press Start to resume when you're ready!"
   if (!raceStore.isRacing && raceStore.currentRound === 0) return 'Press START to begin the race'
   if (!raceStore.isRacing && raceStore.currentRound > 0 && !raceStore.isRaceComplete)
@@ -75,8 +84,9 @@ function horseAnimationSpeed(condition: number): number {
 }
 
 function progressPercent(horseId: number): number {
+  if (raceStore.isRaceComplete) return 100
   const progress = raceStore.raceProgress[horseId] ?? 0
-  const distance = raceStore.currentRoundData?.distance ?? 1
+  const distance = displayRoundData.value?.distance ?? 1
   return Math.min((progress / distance) * 100, 100)
 }
 </script>
